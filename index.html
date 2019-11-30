@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+        <div class="jumbotron" style="background-color: #20315A ; color: white;">
+                <h1 class="display-4">Weather Dashboard</h1>
+        </div>
+        <div class="row">
+                <div class="col-sm-4">
+                    <div class="search-container">
+                        <div class="card-header">
+                        <strong>Search  for a city</strong>
+                        </div>
+                        <div class= "card-body">
+                  <form action="/action_page.php">
+                  <input type="text" placeholder="Search.." name="search" id = "search">
+                  <button type="submit" id="subBtn"><i class="fa fa-search"></i></button>
+                </form>
+                <div class = "card - body"> search city 1 </div>
+                <div class = "card - body"> seach city 2</div>
+                <div class = "card - body"> seach city 3 </div>
+                <div class = "card - body"> seach city 4</div>
+            </div>
+            </div>
+            </div>
+        <div class = "col=sm-8">
+            <div class ="row">
+                <div class = "col-sm-8">
+                    <div class ="card-header">  </div>
+                    <div class = "card-body">   </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-sm-8">
+                        <div class = "card-header">
+                            5 Day weather Report
+                        </div>
+                        <div class = "card" id= "day1"></div>
+                        <div class = "card" id= "day2"></div>
+                        <div class = "card" id= "day3"></div>
+                        <div class = "card" id= "day4"></div>
+                        <div class = "card" id= "day5"></div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"> 
+var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
+
+
+$(subBtn).on("click", weatherForecast);
+function weatherForecast(){
+
+var searchCity = $("#search").val().trim();
+var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+searchCity+"&appid=" + APIKey;
+
+$.ajax({
+  url: queryURL,
+  method: "GET"
+})
+  
+  .then(function(response) {
+
+   
+    console.log(queryURL);
+
+   
+    console.log(response);
+
+  });
+  }
+</script>   
+</body>
+</html>
