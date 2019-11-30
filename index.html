@@ -65,7 +65,7 @@ $(subBtn).on("click", weatherForecast);
 function weatherForecast(){
 
 var searchCity = $("#search").val().trim();
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+searchCity+"&appid=" + APIKey;
+var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+searchCity+"&units=metric&appid=" + APIKey;
 
 $.ajax({
   url: queryURL,
