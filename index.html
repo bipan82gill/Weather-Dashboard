@@ -98,11 +98,27 @@ $.ajax({
         method:"GET"
     }).then(function(response){
         console.log(response);
-        $("#day1").text("date:"+response[0].list.main.dt_txt);
-        $("#day1").text("date:"+response[0].list.main.dt_txt);
-        $("#day1").text("date:"+response[0].list.main.dt_txt);
-        $("#day1").text("date:"+response[0].list.main.dt_txt);
-        console.log(response.list.main.dt_txt); 
+        $("#day1").text("date:"+response[0].list.dt_txt);
+        $("#day1").text("Temp:"+response[0].list.main.temp);
+        $("#day1").text("Humidity:"+response[0].list.main.humidity);
+        $("#day1").text("wind speed:"+response[0].list.wind.speed);
+        $("#day2").text("date:"+response[1].list.dt_txt);
+        $("#day2").text("Temp:"+response[1].list.main.temp);
+        $("#day2").text("Humidity:"+response[1].list.main.humidity);
+        $("#day2").text("wind speed:"+response[1].list.wind.speed);
+        $("#day3").text("date:"+response[2].list.dt_txt);
+        $("#day3").text("Temp:"+response[2].list.main.temp);
+        $("#day3").text("Humidity:"+response[2].list.main.humidity);
+        $("#day3").text("wind speed:"+response[2].list.wind.speed);
+        $("#day4").text("date:"+response[3].list.dt_txt);
+        $("#day4").text("Temp:"+response[3].list.main.temp);
+        $("#day4").text("Humidity:"+response[3].list.main.humidity);
+        $("#day4").text("wind speed:"+response[3].list.wind.speed);
+        $("#day5").text("date:"+response[4].list.dt_txt);
+        $("#day5").text("Temp:"+response[4].list.main.temp);
+        $("#day5").text("Humidity:"+response[4].list.main.humidity);
+        $("#day5").text("wind speed:"+response[4].list.wind.speed);
+        
     });
     });
     
