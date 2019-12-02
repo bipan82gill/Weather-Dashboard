@@ -7,13 +7,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 
 
 </head>
 <body>
         <div class="jumbotron" style="background-color: #20315A ; color: white;">
-                <h1 class="display-4">Weather Dashboard</h1>
+                <h1 class="display-4" align = "center">Weather Dashboard</h1>
+                <div id ="dateTime"></div>
         </div>
         <div class="row">
                 <div class="col-sm-4">
@@ -26,7 +27,7 @@
                         <input type="text" placeholder="Search.." name="search" id = "search">
                         <button type="submit" id="subBtn"><i class="fa fa-search"></i></button>
                         </form>
-                        <div class = "card - body" id = "city-list"> Cities </div>
+                        <div class = "card - body" id = "city-list"> </div>
                          </div>
                     </div>
                  </div>
@@ -61,6 +62,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript"> 
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
+var currentTime = moment().format("hh:mm");
+var currentDate=moment().format('MMMM Do YYYY');
+$("#dateTime").append("<h2>Time:  "+currentTime+"</h2>");
+$("#dateTime").append("<h2>Date:  "+currentDate+"</h2>");
 var cities=[];
 $("#subBtn").on("click", function weatherForecast(event){
 event.preventDefault();
