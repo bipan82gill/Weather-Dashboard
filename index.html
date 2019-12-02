@@ -33,7 +33,7 @@
             <div class = "col=sm-8">
             <div class ="row">
                 <div class = "col-sm-8">
-                    <div class ="card-header"> weather Details </div>
+                    <div class ="card-header"> <h1>Weather Details </h1></div>
                     <div class = "card-body">  
                     <div class = "city-name">   </div>
                     <div class = "temp">        </div>    
@@ -61,12 +61,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript"> 
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
-
-
+var cities=[];
 $("#subBtn").on("click", function weatherForecast(event){
 event.preventDefault();
 var searchCity = $("#search").val().trim();
+cities.push(searchCity);
+console.log(cities);
+localStorage.setItem("cities",cities);
+for(var i=0;i<cities.length;i++){
+var newCity=localStorage.getItem("cities",cities[i]).split(",");
+$("#city-list").text("  ");
+$("#city-list").append("<h1>"+newCity+"</h1>");}
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+searchCity+"&units=metric&appid=" + APIKey;
 
 $.ajax({
@@ -75,7 +80,7 @@ $.ajax({
         }).then(function(response) {
             console.log(queryURL);
             console.log(response);
-                $(".city-name").text("city: "+response.name);
+                $(".city-name").text("City: "+response.name);
                 $(".temp").text("Temprature"+response.main.temp);
                 $(".humidity").text("Humidity:"+response.humidity);
                 $(".wind-speed").text("Wind Speed : "+response.wind.speed);
@@ -120,20 +125,8 @@ $.ajax({
         $("#day5").text("wind speed:"+response[4].list.wind.speed);
         
     });
+    
     });
-    
-var cities= [];
-cities.push(searchCity);
-localStorage.setItem("cities",cities);
-if(localStorage.getItem("cities")){
-    localStorage.getItem("cities").split(",");
-    showCities();}
-    function showCities(){
-        for(i=0;i<length.cities;i++){
-    $("#city-list").text( localStorage.getItem("cities").split(","));
-    }
-    
-}
 });
 </script>   
 </body>
