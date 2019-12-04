@@ -12,12 +12,13 @@
 
 </head>
 <body>
+        <div class="container">
         <div class="jumbotron" style="background-color: #20315A ; color: white;">
                 <h1 class="display-4" align = "center">Weather Dashboard</h1>
                 <div id ="dateTime"></div>
         </div>
         <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="search-container">
                         <div class="card-header">
                         <strong>Search  for a city</strong>
@@ -27,37 +28,44 @@
                         <input type="text" placeholder="Search.." name="search" id = "search">
                         <button type="submit" id="subBtn"><i class="fa fa-search"></i></button>
                         </form>
-                        <div class = "card - body" id = "city-list"> </div>
+                        
                          </div>
                     </div>
-                 </div>
-            <div class = "col=sm-8">
+                 </div></div>
+           
             <div class ="row">
-                <div class = "col-sm-8">
-                    <div class ="card-header"> <h1>Weather Details </h1></div>
-                    <div class = "card-body">  
+                <div class = "col-sm-6">
+                    <div class ="card-header" style= "background-color: rgb(114, 146, 187);"> <h1>Weather Details </h1></div>
+                    <div class = "card-body" style= "background-color: rgb(160, 193, 236);">  
                     <div class = "city-name">   </div>
+                    <div class= "icon"> <img src="">        </div>
                     <div class = "temp">        </div>    
-                    <div class = "Humidity">    </div>
+                    <div class = "humidity">    </div>
                     <div class = "wind-speed">  </div>
                     <div class = "uv-index">    </div>
                     </div>
                 </div>
-                <div class = "row">
-                    <div class = "col-sm-8">
-                        <div class = "card-header">
-                           <h1> <strong>5 Day weather Report</strong></h1>
-                        </div>
-                        <div class = "card" id= "day1"></div>
-                        <div class = "card" id= "day2"></div>
-                        <div class = "card" id= "day3"></div>
-                        <div class = "card" id= "day4"></div>
-                        <div class = "card" id= "day5"></div>
-                    </div>
+                <div class = "col=sm-8">
+                        <div class ="card-header" style= "background-color: rgb(114, 146, 187);"> <h1>Search History</h1></div>
+                        <div class = "card - body" id = "city-list" style="background-color:rgb(160, 193, 236)"> </div>
+            </div>
+            </div>
+            <div class = "row">
+                <div class = "card-header">
+                        <h1> <strong>5 Day weather Report</strong></h1>
+                     </div></div>
+                     <div class = "row">
+                    
+                        
+                        <div class = "card col-lg" id= "day1" style= "background-color:rgb(160, 193, 236)"></div>
+                        <div class = "card col-lg" id= "day2" style= "background-color:rgb(114, 158, 216)"></div>
+                        <div class = "card col-lg" id= "day3" style= "background-color:rgb(160, 193, 236)"></div>
+                        <div class = "card col-lg" id= "day4" style= "background-color:rgb(114, 158, 216)"></div>
+                        <div class = "card col-lg" id= "day5" style= "background-color:rgb(160, 193, 236)"></div>
+                    
                 </div>
         </div>
-        </div>
-        </div>
+       
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript"> 
@@ -76,7 +84,9 @@ localStorage.setItem("cities",cities);
 for(var i=0;i<cities.length;i++){
 var newCity=localStorage.getItem("cities",cities[i]).split(",");
 $("#city-list").text("  ");
-$("#city-list").append("<h1>"+newCity+"</h1>");}
+$("#city-list").append("<h2>"+newCity+"</h2>");
+
+}
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+searchCity+"&units=metric&appid=" + APIKey;
 
 $.ajax({
@@ -85,9 +95,11 @@ $.ajax({
         }).then(function(response) {
             console.log(queryURL);
             console.log(response);
+            var iconImg = response.weather.icon;
                 $(".city-name").text("City: "+response.name);
+                //$(".icon").append("<img src='https://openweathermap.org/img/wn/10d@2x."+iconImg+".png>");
                 $(".temp").text("Temprature"+response.main.temp);
-                $(".humidity").text("Humidity:"+response.humidity);
+                $(".humidity").text("Humidity:"+response.main.humidity);
                 $(".wind-speed").text("Wind Speed : "+response.wind.speed);
                     var lat = response.coord.lat;
                     var lon = response.coord.lon;
@@ -101,37 +113,48 @@ $.ajax({
                 console.log(response);
                 console.log(response.value);
                 $(".uv-index").text("UV-Index: "+response.value);
-                                         });
+         
 
  $.ajax({
-        url:"https://api.openweathermap.org/data/2.5/?lat="+lat+"&lon="+lon+"&appid="+APIKey,
+        url:"https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+APIKey,
         method:"GET"
     }).then(function(response){
         console.log(response);
-        $("#day1").text("date:"+response[0].list.dt_txt);
-        $("#day1").text("Temp:"+response[0].list.main.temp);
-        $("#day1").text("Humidity:"+response[0].list.main.humidity);
-        $("#day1").text("wind speed:"+response[0].list.wind.speed);
-        $("#day2").text("date:"+response[1].list.dt_txt);
-        $("#day2").text("Temp:"+response[1].list.main.temp);
-        $("#day2").text("Humidity:"+response[1].list.main.humidity);
-        $("#day2").text("wind speed:"+response[1].list.wind.speed);
-        $("#day3").text("date:"+response[2].list.dt_txt);
-        $("#day3").text("Temp:"+response[2].list.main.temp);
-        $("#day3").text("Humidity:"+response[2].list.main.humidity);
-        $("#day3").text("wind speed:"+response[2].list.wind.speed);
-        $("#day4").text("date:"+response[3].list.dt_txt);
-        $("#day4").text("Temp:"+response[3].list.main.temp);
-        $("#day4").text("Humidity:"+response[3].list.main.humidity);
-        $("#day4").text("wind speed:"+response[3].list.wind.speed);
-        $("#day5").text("date:"+response[4].list.dt_txt);
-        $("#day5").text("Temp:"+response[4].list.main.temp);
-        $("#day5").text("Humidity:"+response[4].list.main.humidity);
-        $("#day5").text("wind speed:"+response[4].list.wind.speed);
+        $("#day1").empty();
+        $("#day2").empty();
+        $("#day3").empty();
+        $("#day4").empty();
+        $("#day5").empty();
+        $("#day1").append("<h4>City:"+response.city.name+"</h4>");
+        $("#day1").append("<h4>Date:"+response.list[0].dt_txt+"</h4>");
+        $("#day1").append("<h4>Temp:"+response.list[0].main.temp+"</h4>");
+        $("#day1").append("<h4>Humidity:"+response.list[0].main.humidity+"</h4>");
+         $("#day1").append("<h4>wind speed:"+response.list[0].wind.speed+"</h4>");
+         $("#day2").append("<h4>City:"+response.city.name+"</h4>");
+         $("#day2").append("<h4>Date:"+response.list[8].dt_txt+"</h4>");
+        $("#day2").append("<h4>Temp:"+response.list[8].main.temp+"</h4>");
+        $("#day2").append("<h4>Humidity:"+response.list[8].main.humidity+"</h4>");
+         $("#day2").append("<h4>wind speed:"+response.list[8].wind.speed+"</h4>");
+         $("#day3").append("<h4>City:"+response.city.name+"</h4>");
+         $("#day3").append("<h4>Date:"+response.list[16].dt_txt+"</h4>");
+        $("#day3").append("<h4>Temp:"+response.list[16].main.temp+"</h4>");
+        $("#day3").append("<h4>Humidity:"+response.list[16].main.humidity+"</h4>");
+         $("#day3").append("<h4>wind speed:"+response.list[16].wind.speed+"</h4>");
+         $("#day4").append("<h4>City:"+response.city.name+"</h4>");
+         $("#day4").append("<h4>Date:"+response.list[24].dt_txt+"</h4>");
+        $("#day4").append("<h4>Temp:"+response.list[24].main.temp+"</h4>");
+        $("#day4").append("<h4>Humidity:"+response.list[24].main.humidity+"</h4>");
+         $("#day4").append("<h4>wind speed:"+response.list[24].wind.speed+"</h4>");
+         $("#day5").append("<h4>City:"+response.city.name+"</h4>");
+         $("#day5").append("<h4>Date:"+response.list[32].dt_txt+"</h4>");
+        $("#day5").append("<h4>Temp:"+response.list[32].main.temp+"</h4>");
+        $("#day5").append("<h4>Humidity:"+response.list[32].main.humidity+"</h4>");
+         $("#day5").append("<h4>wind speed:"+response.list[32].wind.speed+"</h4>");
         
     });
-    
-    });
+        });
+});
+   
 });
 </script>   
 </body>
