@@ -38,7 +38,8 @@
                     <div class ="card-header" style= "background-color: rgb(114, 146, 187);"> <h1>Weather Details </h1></div>
                     <div class = "card-body" style= "background-color: rgb(160, 193, 236);">  
                     <div class = "city-name">   </div>
-                    <div class= "icon"> <img src="">        </div>
+                    <div class= "icon"> <img src="" id = "icon">        </div>
+                    <div class = "desc"></div>
                     <div class = "temp">        </div>    
                     <div class = "humidity">    </div>
                     <div class = "wind-speed">  </div>
@@ -70,6 +71,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript"> 
 var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
 var currentTime = moment().format("hh:mm");
 var currentDate=moment().format('MMMM Do YYYY');
 $("#dateTime").append("<h2>Time:  "+currentTime+"</h2>");
@@ -95,10 +97,12 @@ $.ajax({
         }).then(function(response) {
             console.log(queryURL);
             console.log(response);
-            var iconImg = response.weather.icon;
+            var iconImg = response.weather[0].icon;
+            
                 $(".city-name").text("City: "+response.name);
-                //$(".icon").append("<img src='https://openweathermap.org/img/wn/10d@2x."+iconImg+".png>");
-                $(".temp").text("Temprature"+response.main.temp);
+                $("#icon").attr('src',"http://openweathermap.org/img/w/" + iconImg + ".png");
+                $(".desc").text("Description : "+response.weather[0].description);
+                $(".temp").text("Temprature"+response.main.temp+"C");
                 $(".humidity").text("Humidity:"+response.main.humidity);
                 $(".wind-speed").text("Wind Speed : "+response.wind.speed);
                     var lat = response.coord.lat;
@@ -107,7 +111,7 @@ $.ajax({
                     console.log(lon);
           $.ajax({
 
-            url: "https://api.openweathermap.org/data/2.5/uvi?lat="+lat+"&lon="+lon+"&appid="+ APIKey,
+            url: "https://api.openweathermap.org/data/2.5/uvi?lat="+lat+"&lon="+lon+"&units=metric&appid="+ APIKey,
             method:"GET"
                 }).then(function(response){
                 console.log(response);
@@ -116,10 +120,11 @@ $.ajax({
          
 
  $.ajax({
-        url:"https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+APIKey,
+        url:"https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&units=metric&appid="+APIKey,
         method:"GET"
     }).then(function(response){
         console.log(response);
+
         $("#day1").empty();
         $("#day2").empty();
         $("#day3").empty();
@@ -127,27 +132,27 @@ $.ajax({
         $("#day5").empty();
         $("#day1").append("<h4>City:"+response.city.name+"</h4>");
         $("#day1").append("<h4>Date:"+response.list[0].dt_txt+"</h4>");
-        $("#day1").append("<h4>Temp:"+response.list[0].main.temp+"</h4>");
+        $("#day1").append("<h4>Temp:"+response.list[0].main.temp+"C</h4>");
         $("#day1").append("<h4>Humidity:"+response.list[0].main.humidity+"</h4>");
          $("#day1").append("<h4>wind speed:"+response.list[0].wind.speed+"</h4>");
          $("#day2").append("<h4>City:"+response.city.name+"</h4>");
          $("#day2").append("<h4>Date:"+response.list[8].dt_txt+"</h4>");
-        $("#day2").append("<h4>Temp:"+response.list[8].main.temp+"</h4>");
+        $("#day2").append("<h4>Temp:"+response.list[8].main.temp+"C</h4>");
         $("#day2").append("<h4>Humidity:"+response.list[8].main.humidity+"</h4>");
          $("#day2").append("<h4>wind speed:"+response.list[8].wind.speed+"</h4>");
          $("#day3").append("<h4>City:"+response.city.name+"</h4>");
          $("#day3").append("<h4>Date:"+response.list[16].dt_txt+"</h4>");
-        $("#day3").append("<h4>Temp:"+response.list[16].main.temp+"</h4>");
+        $("#day3").append("<h4>Temp:"+response.list[16].main.temp+"C</h4>");
         $("#day3").append("<h4>Humidity:"+response.list[16].main.humidity+"</h4>");
          $("#day3").append("<h4>wind speed:"+response.list[16].wind.speed+"</h4>");
          $("#day4").append("<h4>City:"+response.city.name+"</h4>");
          $("#day4").append("<h4>Date:"+response.list[24].dt_txt+"</h4>");
-        $("#day4").append("<h4>Temp:"+response.list[24].main.temp+"</h4>");
+        $("#day4").append("<h4>Temp:"+response.list[24].main.temp+"C</h4>");
         $("#day4").append("<h4>Humidity:"+response.list[24].main.humidity+"</h4>");
          $("#day4").append("<h4>wind speed:"+response.list[24].wind.speed+"</h4>");
          $("#day5").append("<h4>City:"+response.city.name+"</h4>");
          $("#day5").append("<h4>Date:"+response.list[32].dt_txt+"</h4>");
-        $("#day5").append("<h4>Temp:"+response.list[32].main.temp+"</h4>");
+        $("#day5").append("<h4>Temp:"+response.list[32].main.temp+"C</h4>");
         $("#day5").append("<h4>Humidity:"+response.list[32].main.humidity+"</h4>");
          $("#day5").append("<h4>wind speed:"+response.list[32].wind.speed+"</h4>");
         
