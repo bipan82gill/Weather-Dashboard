@@ -17,3 +17,6 @@ HTML 5, Bootstrap, JavaScript, Moment min.js, Ajax, Weather API.
 
 ## Five Day Weather
 ![five days weather search](./images/fivedaysWeather.jpg)
+
+## Deployed Link
+https://bipan82gill.github.io/Weather-Dashboard/
