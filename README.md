@@ -8,3 +8,12 @@ This application helps user to find Weather Report.
 HTML 5, Bootstrap, JavaScript, Moment min.js, Ajax, Weather API.
 
 # Demo
+
+## Weather Search
+![weather search](./images/weatherSearch.jpg)
+
+## Today's Weather
+![today's weather search](./images/todaysWeather.jpg)
+
+## Five Day Weather
+![five days weather search](./images/fivedaysWeather.jpg)
